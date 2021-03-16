@@ -1,6 +1,7 @@
-import React, {ReactNode, useState} from 'react'
+import React, {ReactNode} from 'react'
 import Head from 'next/head'
-import PrimaryButton from "./Button/PrimaryButton";
+import {PrimaryButtonRef} from "./button/PrimaryButton";
+import Link from "next/link";
 
 type Props = {
     children?: ReactNode
@@ -8,35 +9,32 @@ type Props = {
 }
 
 const Layout = ({children, title}: Props) => {
-    const [doViewModal, setDoViewModal] = useState(false)
-
-
     return <>
         <Head>
-            <title>{title ?? "index" + " | moira"}</title>
+            <title>{(title ?? "index") + " | moira"}</title>
             <meta charSet="utf-8"/>
             <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         </Head>
-        <body className="flex flex-col min-h-screen">
-        <header className="mx-4">
-            <nav className="flex justify-between bg-gray-50">
-                <div/>
-                <div/>
-                <div>
-                    <PrimaryButton onClick={() => {
-                        setDoViewModal(!doViewModal)
-                    }}>ログイン</PrimaryButton>
-                </div>
-            </nav>
-        </header>
-        <main className="flex-1">
-            {children}
-        </main>
-        <footer className="bg-gray-100">
-            <hr/>
-            <span>Footer</span>
-        </footer>
-        </body>
+        <div className="flex flex-col min-h-screen">
+            <header>
+                <nav className="flex justify-between bg-gray-200">
+                    <div className="ml-4"/>
+                    <div/>
+                    <div className="mr-4">
+                        <Link href="/login" passHref>
+                            <PrimaryButtonRef>ログイン</PrimaryButtonRef>
+                        </Link>
+                    </div>
+                </nav>
+            </header>
+            <main className="flex-1 bg-gray-50">
+                {children}
+            </main>
+            <footer className="bg-gray-400">
+                <hr/>
+                <span>Footer</span>
+            </footer>
+        </div>
     </>
 }
 
