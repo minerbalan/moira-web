@@ -1,4 +1,5 @@
 import "tailwindcss/tailwind.css";
+import "../css/styles.css"
 import {AppProps} from "next/app";
 import React from "react";
 import {Provider} from "react-redux";
