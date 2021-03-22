@@ -11,7 +11,5 @@ export const loginRequest = createAsyncThunk<void, LoginRequest>(
     async (arg): Promise<void> => {
         const test = await fetchApi("/login", "POST", arg)
         console.log(test)
-        const test2 = await fetchApi("/articles", "GET")
-        console.log(test2)
     }
 )
