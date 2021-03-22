@@ -11,8 +11,10 @@ import {useRouter} from "next/router";
 
 const Login = () => {
     const dispatch = useDispatch()
+    const router = useRouter()
     const loginState = useSelector((state: { login: LoginState }) => state.login)
     const [showAlert, setShowAlert] = useState(false)
+
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,6 +29,13 @@ const Login = () => {
         }
         dispatch(loginRequest({email, password}))
     }
+
+    useEffect(() => {
+        if (loginState.isLogin) {
+            dispatch(fetchCurrentUserRequest())
+            router.push("/")
+        }
+    }, [loginState.isLogin])
 
     useEffect(() => {
         if (loginState.hasError != showAlert) {
