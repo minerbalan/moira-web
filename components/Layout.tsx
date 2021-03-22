@@ -18,7 +18,11 @@ const Layout = ({children, title}: Props) => {
         <div className="flex flex-col min-h-screen">
             <header>
                 <nav className="flex justify-between bg-gray-200">
-                    <div className="ml-4"/>
+                    <div className="flex items-center ml-4 text-3xl">
+                        <Link href="/">
+                            <a><i className="bi bi-house"/></a>
+                        </Link>
+                    </div>
                     <div/>
                     <div className="mr-4">
                         <Link href="/login" passHref>
