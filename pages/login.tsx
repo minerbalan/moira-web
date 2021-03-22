@@ -1,15 +1,23 @@
 import Layout from "../components/Layout";
 import {PrimaryButton} from "../components/button/PrimaryButton";
 import TextInput from "../components/input/TextInput";
-import {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {loginRequest} from "../redux/login/asyncActions";
+import Alert from "../components/alert/Alert";
+import loginSlice, {LoginState} from "../redux/login/slice";
+import {fetchCurrentUserRequest} from "../redux/currentUser/asyncActions";
+import {useRouter} from "next/router";
 
 const Login = () => {
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        dispatch(loginSlice.actions.initLoginState())
+    }, [])
 
     const onClickLoginButton = () => {
         if (!email || !password) {
