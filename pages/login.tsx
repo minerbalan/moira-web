@@ -11,6 +11,8 @@ import {useRouter} from "next/router";
 
 const Login = () => {
     const dispatch = useDispatch()
+    const loginState = useSelector((state: { login: LoginState }) => state.login)
+    const [showAlert, setShowAlert] = useState(false)
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,10 +28,27 @@ const Login = () => {
         dispatch(loginRequest({email, password}))
     }
 
+    useEffect(() => {
+        if (loginState.hasError != showAlert) {
+            setShowAlert(loginState.hasError)
+        }
+    }, [loginState.hasError])
+
+    const onClickCloseAlert = () => {
+        if (showAlert) {
+            setShowAlert(false)
+        }
+    }
+
     return <>
         <Layout title="ログイン">
             <div className="flex flex-col items-center max-w-lg m-auto">
                 <h1 className="block text-4xl font-bold w-100 border-b mt-10 mb-5">ログイン</h1>
+                {
+                    showAlert &&
+                    <Alert onCloseClick={onClickCloseAlert}>ログインに失敗しました</Alert>
+                }
+
                 <TextInput type="email" label="メールアドレス"
                            onChange={(e) => {
                                setEmail(e.target.value)
