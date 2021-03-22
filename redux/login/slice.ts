@@ -9,21 +9,26 @@ export type LoginState = {
     isLogin: boolean
 };
 
-const initialState: LoginState = {
+export const initialLoginState: LoginState = {
     errorMessage: "", errorName: "", hasError: false, isLoading: false, isLogin: false
 }
 
 const loginSlice = createSlice({
     name: 'login',
-    initialState,
-    reducers: {},
+    initialState: initialLoginState,
+    reducers: {
+        initLoginState: () => {
+            return initialLoginState;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(loginRequest.pending, (state) => ({
                 ...state,
                 isLoading: true,
                 hasError: false,
                 errorName: '',
-                errorMessage: ''
+                errorMessage: '',
+                isLogin: false
             })
         )
         builder.addCase(loginRequest.rejected, (state, action) => ({
@@ -31,16 +36,20 @@ const loginSlice = createSlice({
                 isLoading: false,
                 hasError: true,
                 errorName: 'ログイン失敗',
-                errorMessage: action.error.message ?? ""
+                errorMessage: action.error.message ?? "",
+                isLogin: false
             })
         )
-        builder.addCase(loginRequest.fulfilled, (state) => ({
-            ...state,
-            isLoading: false,
-            hasError: false,
-            errorName: '',
-            errorMessage: ''
-        }))
+        builder.addCase(loginRequest.fulfilled, (state) => {
+            return {
+                ...state,
+                isLoading: false,
+                hasError: false,
+                errorName: '',
+                errorMessage: '',
+                isLogin: true
+            }
+        })
     }
 })
 
