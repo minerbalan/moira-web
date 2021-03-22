@@ -22,7 +22,7 @@ const Layout = ({children, title}: Props) => {
                     <div/>
                     <div className="mr-4">
                         <Link href="/login" passHref>
-                            <PrimaryButtonRef>ログイン</PrimaryButtonRef>
+                            <PrimaryButtonRef className="my-2">ログイン</PrimaryButtonRef>
                         </Link>
                     </div>
                 </nav>

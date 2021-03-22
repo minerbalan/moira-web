@@ -11,7 +11,7 @@ export const PrimaryButton = ({children, className, onClick, forwardedRef}: Prim
     return <button
         ref={forwardedRef}
         onClick={onClick}
-        className={"focus:outline-none text-white text-sm py-2.5 px-5 m-2 " +
+        className={"focus:outline-none text-white text-sm py-2.5 px-5 " +
         "rounded-md bg-gradient-to-r from-blue-400 to-blue-600 transform select-none " + `${className ?? ""}`}
     >{children ?? "ボタン"}</button>
 }
