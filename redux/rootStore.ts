@@ -1,10 +1,15 @@
 import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import logger from 'redux-logger';
 import rootReducer from "./rootReducer";
+import {initialCurrentUserState} from "./currentUser/slice";
+import {initialLoginState} from "./login/slice";
 
 const middlewareList = [...getDefaultMiddleware(), logger];
 
-const preloadState = ({})
+const preloadState = ({
+    currentUser: initialCurrentUserState,
+    login: initialLoginState
+})
 
 const rootStore = configureStore({
     reducer: rootReducer,
