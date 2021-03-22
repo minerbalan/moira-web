@@ -2,6 +2,8 @@ import React, {ReactNode} from 'react'
 import Head from 'next/head'
 import {PrimaryButtonRef} from "./button/PrimaryButton";
 import Link from "next/link";
+import {useCurrentUser} from "../hooks/useCurrentUser";
+import Dropdown from "./dropdown/Dropdown";
 
 type Props = {
     children?: ReactNode
@@ -9,6 +11,8 @@ type Props = {
 }
 
 const Layout = ({children, title}: Props) => {
+    const {isLogin, currentUser} = useCurrentUser();
+
     return <>
         <Head>
             <title>{(title ?? "index") + " | moira"}</title>
@@ -24,10 +28,22 @@ const Layout = ({children, title}: Props) => {
                         </Link>
                     </div>
                     <div/>
-                    <div className="mr-4">
+                    <div className="mr-4 flex items-center">
+                        {!isLogin &&
                         <Link href="/login" passHref>
                             <PrimaryButtonRef className="my-2">ログイン</PrimaryButtonRef>
                         </Link>
+                        }
+                        {isLogin && currentUser.userName &&
+                        <Dropdown menuName={<i className="bi bi-person-circle text-3xl"/>}>
+                            <div className="py-1" role="none">
+                                <a href="#"
+                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                   role="menuitem">ログアウト</a>
+                            </div>
+                        </Dropdown>
+                        }
+
                     </div>
                 </nav>
             </header>
