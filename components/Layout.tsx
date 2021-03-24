@@ -22,7 +22,7 @@ const Layout = ({children, title}: Props) => {
         <div className="flex flex-col min-h-screen">
             <header>
                 <nav className="flex justify-between bg-gray-200">
-                    <div className="flex items-center ml-4 text-3xl">
+                    <div className="flex items-center ml-4 text-5xl">
                         <Link href="/">
                             <a><i className="bi bi-house"/></a>
                         </Link>
@@ -35,7 +35,12 @@ const Layout = ({children, title}: Props) => {
                         </Link>
                         }
                         {isLogin && currentUser.userName &&
-                        <Dropdown menuName={<i className="bi bi-person-circle text-3xl"/>}>
+                        <Dropdown menuName={<i className="bi bi-person-circle text-5xl"/>}>
+                            <div className="py-1" role="none">
+                                <div className="block px-4 pt-2 text-sm text-gray-500 select-none">ログイン中のユーザー</div>
+                                <div
+                                    className="block px-4 pb-2 text-sm text-gray-900 select-none font-bold">{currentUser.userName}</div>
+                            </div>
                             <div className="py-1" role="none">
                                 <a href="#"
                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
