@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 export type DropdownProps = {
   menuName: string | JSX.Element;
@@ -6,7 +6,7 @@ export type DropdownProps = {
   initMenuState?: boolean;
 };
 
-const Dropdown = ({ menuName, children, initMenuState }: DropdownProps) => {
+const Dropdown = ({ menuName, children, initMenuState }: DropdownProps): JSX.Element => {
   if (initMenuState == undefined) {
     initMenuState = false;
   }

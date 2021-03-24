@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import { PrimaryButton } from "../components/button/PrimaryButton";
 import TextInput from "../components/input/TextInput";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../redux/login/asyncActions";
 import Alert from "../components/alert/Alert";
@@ -9,7 +9,7 @@ import loginSlice, { LoginState } from "../redux/login/slice";
 import { fetchCurrentUserRequest } from "../redux/currentUser/asyncActions";
 import { useRouter } from "next/router";
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const dispatch = useDispatch();
   const router = useRouter();
   const loginState = useSelector((state: { login: LoginState }) => state.login);
@@ -20,7 +20,7 @@ const Login = () => {
 
   useEffect(() => {
     dispatch(loginSlice.actions.initLoginState());
-  }, []);
+  }, [dispatch]);
 
   const onClickLoginButton = () => {
     if (!email || !password) {
@@ -34,13 +34,13 @@ const Login = () => {
       dispatch(fetchCurrentUserRequest());
       router.push("/");
     }
-  }, [loginState.isLogin]);
+  }, [dispatch, loginState.isLogin, router]);
 
   useEffect(() => {
     if (loginState.hasError != showAlert) {
       setShowAlert(loginState.hasError);
     }
-  }, [loginState.hasError]);
+  }, [loginState.hasError, showAlert]);
 
   const onClickCloseAlert = () => {
     if (showAlert) {
@@ -79,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;

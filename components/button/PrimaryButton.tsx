@@ -7,7 +7,7 @@ type PrimaryButtonProps = {
   forwardedRef?: ForwardedRef<HTMLButtonElement>;
 };
 
-export const PrimaryButton = ({ children, className, onClick, forwardedRef }: PrimaryButtonProps) => {
+export const PrimaryButton = ({ children, className, onClick, forwardedRef }: PrimaryButtonProps): JSX.Element => {
   return (
     <button
       ref={forwardedRef}
@@ -26,3 +26,4 @@ export const PrimaryButton = ({ children, className, onClick, forwardedRef }: Pr
 export const PrimaryButtonRef = forwardRef<HTMLButtonElement, PrimaryButtonProps>((props: PrimaryButtonProps, ref) => {
   return <PrimaryButton {...props} forwardedRef={ref} />;
 });
+PrimaryButtonRef.displayName = "PrimaryButtonRef";

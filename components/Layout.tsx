@@ -10,7 +10,7 @@ type Props = {
   title?: string;
 };
 
-const Layout = ({ children, title }: Props) => {
+const Layout = ({ children, title }: Props): JSX.Element => {
   const { isLogin, currentUser } = useCurrentUser();
 
   return (

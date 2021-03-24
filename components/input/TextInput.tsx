@@ -10,7 +10,7 @@ type TextInputProps = {
   inputClassName?: string;
 };
 
-const TextInput = (props: TextInputProps) => {
+const TextInput = (props: TextInputProps): JSX.Element => {
   return (
     <>
       <label className={"w-full " + props.className ?? ""}>

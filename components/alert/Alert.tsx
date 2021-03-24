@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 type AlertColor = "red" | "RED";
 
@@ -9,7 +9,7 @@ type AlertProps = {
   onCloseClick?: () => void;
 };
 
-const Alert = ({ className, color, children, onCloseClick }: AlertProps) => {
+const Alert = ({ className, color, children, onCloseClick }: AlertProps): JSX.Element => {
   let colorName = "bg-red-500";
   switch (color) {
     case "red":

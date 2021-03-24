@@ -5,7 +5,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import rootStore from "../redux/rootStore";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <Provider store={rootStore}>
       <Component {...pageProps} />
