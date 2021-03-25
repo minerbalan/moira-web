@@ -1,23 +1,33 @@
 import React, { ReactNode, useState } from "react";
+import OutSideClickListener from "../outsideClickListener/OutsideClickListener";
 
 export type DropdownProps = {
   menuName: string | JSX.Element;
   children?: ReactNode;
-  initMenuState?: boolean;
+  initOpenMenu: boolean;
+  backdropClose: boolean;
 };
 
-const Dropdown = ({ menuName, children, initMenuState }: DropdownProps): JSX.Element => {
-  if (initMenuState == undefined) {
-    initMenuState = false;
+const Dropdown = ({ menuName, children, initOpenMenu, backdropClose }: DropdownProps): JSX.Element => {
+  if (initOpenMenu == undefined) {
+    initOpenMenu = false;
   }
-  const [openMenu, setOpenMenu] = useState(initMenuState);
+  const [openMenu, setOpenMenu] = useState(initOpenMenu);
 
   const showCss = "transition ease-out duration-100 transform opacity-100 scale-100";
 
   const hideCss = "transition ease-in duration-75 transform opacity-0 scale-95";
 
+  const outsideClickListener = backdropClose
+    ? () => {
+        if (openMenu) {
+          setOpenMenu(false);
+        }
+      }
+    : undefined;
+
   return (
-    <>
+    <OutSideClickListener onOutsideClick={outsideClickListener}>
       <div className="relative inline-block text-left">
         <div>
           <div
@@ -49,8 +59,13 @@ const Dropdown = ({ menuName, children, initMenuState }: DropdownProps): JSX.Ele
           {children}
         </div>
       </div>
-    </>
+    </OutSideClickListener>
   );
+};
+
+Dropdown.defaultProps = {
+  initOpenMenu: false,
+  backdropClose: true,
 };
 
 export default Dropdown;
