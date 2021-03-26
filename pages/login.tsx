@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../redux/login/asyncActions";
 import Alert from "../components/alert/Alert";
 import loginSlice, { LoginState } from "../redux/login/slice";
-import { fetchCurrentUserRequest } from "../redux/currentUser/asyncActions";
+import { fetchCurrentUser } from "../redux/currentUser/asyncActions";
 import { useRouter } from "next/router";
 
 const Login = (): JSX.Element => {
@@ -31,7 +31,7 @@ const Login = (): JSX.Element => {
 
   useEffect(() => {
     if (loginState.isLogin) {
-      dispatch(fetchCurrentUserRequest());
+      dispatch(fetchCurrentUser());
       router.push("/");
     }
   }, [dispatch, loginState.isLogin, router]);

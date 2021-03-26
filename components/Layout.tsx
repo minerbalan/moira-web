@@ -1,9 +1,11 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import Head from "next/head";
 import { PrimaryButtonRef } from "./button/PrimaryButton";
 import Link from "next/link";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import Dropdown from "./dropdown/Dropdown";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/currentUser/asyncActions";
 
 type Props = {
   children?: ReactNode;
@@ -12,6 +14,17 @@ type Props = {
 
 const Layout = ({ children, title }: Props): JSX.Element => {
   const { isLogin, currentUser } = useCurrentUser();
+  const dispatch = useDispatch();
+
+  const onClickLogout = () => {
+    dispatch(logoutUser());
+  };
+
+  useEffect(() => {
+    if (currentUser.isLogout) {
+      location.reload();
+    }
+  }, [currentUser.isLogout]);
 
   return (
     <>
@@ -47,9 +60,9 @@ const Layout = ({ children, title }: Props): JSX.Element => {
                   </div>
                   <div className="py-1" role="none">
                     <a
-                      href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem"
+                      onClick={onClickLogout}
                     >
                       ログアウト
                     </a>

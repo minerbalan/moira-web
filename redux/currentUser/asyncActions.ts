@@ -1,14 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import fetchApi from "../../utils/fetchApi";
 
-export type CurrentUserRequest = {
+export type CurrentUserResponse = {
   username: string;
 };
 
-export const fetchCurrentUserRequest = createAsyncThunk<CurrentUserRequest, void>(
-  "currentUser/fetchCurrentUserRequest",
-  async (): Promise<CurrentUserRequest> => {
+export const fetchCurrentUser = createAsyncThunk<CurrentUserResponse, void>(
+  "currentUser/fetchCurrentUser",
+  async (): Promise<CurrentUserResponse> => {
     const responseData = await fetchApi("/current/user", "GET");
     return { username: responseData.data.username };
+  }
+);
+
+export const logoutUser = createAsyncThunk<void, void>(
+  "currentUser/logoutUser",
+  async (): Promise<void> => {
+    await fetchApi("/logout", "POST");
   }
 );

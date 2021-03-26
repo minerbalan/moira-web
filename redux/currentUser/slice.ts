@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCurrentUserRequest } from "./asyncActions";
+import { fetchCurrentUser, logoutUser } from "./asyncActions";
 
 export type CurrentUserState = {
   isFetching: boolean;
   isLogin: boolean;
   userName?: string;
+  isLogout: boolean;
+  logoutErrorMessage?: string;
 };
 
 export const initialCurrentUserState: CurrentUserState = {
   isFetching: false,
   isLogin: false,
   userName: undefined,
+  isLogout: false,
+  logoutErrorMessage: undefined,
 };
 
 const currentUserSlice = createSlice({
@@ -25,21 +29,27 @@ const currentUserSlice = createSlice({
       return { ...state };
     },
 
-    logoutUser: (state) => {
-      return { ...state, isLogin: false, userName: undefined };
+    resetLogoutErrorMessage: (state) => {
+      return { ...state, logoutErrorMessage: undefined };
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCurrentUserRequest.pending, (state) => {
+    builder.addCase(fetchCurrentUser.pending, (state) => {
       return { ...state, isFetching: true };
     });
-    builder.addCase(fetchCurrentUserRequest.rejected, (state) => {
+    builder.addCase(fetchCurrentUser.rejected, (state) => {
       return { ...state, isFetching: false, isLogin: false, userName: undefined };
     });
-    builder.addCase(fetchCurrentUserRequest.fulfilled, (state, action) => {
+    builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
       return { ...state, isFetching: false, isLogin: true, userName: action.payload.username };
+    });
+    builder.addCase(logoutUser.rejected, (state) => {
+      return { ...state, logoutErrorMessage: "ログアウト中にエラーが発生しました" };
+    });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      return { ...state, isLogout: true };
     });
   },
 });
 
-export default currentUserSlice
+export default currentUserSlice;
