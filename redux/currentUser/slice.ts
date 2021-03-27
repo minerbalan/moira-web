@@ -3,6 +3,7 @@ import { fetchCurrentUser, logoutUser } from "./asyncActions";
 
 export type CurrentUserState = {
   isFetching: boolean;
+  isFetched: boolean;
   isLogin: boolean;
   userName?: string;
   isLogout: boolean;
@@ -11,6 +12,7 @@ export type CurrentUserState = {
 
 export const initialCurrentUserState: CurrentUserState = {
   isFetching: false,
+  isFetched: false,
   isLogin: false,
   userName: undefined,
   isLogout: false,
@@ -38,10 +40,10 @@ const currentUserSlice = createSlice({
       return { ...state, isFetching: true };
     });
     builder.addCase(fetchCurrentUser.rejected, (state) => {
-      return { ...state, isFetching: false, isLogin: false, userName: undefined };
+      return { ...state, isFetched: true, isFetching: false, isLogin: false, userName: undefined };
     });
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
-      return { ...state, isFetching: false, isLogin: true, userName: action.payload.username };
+      return { ...state, isFetched: true, isFetching: false, isLogin: true, userName: action.payload.username };
     });
     builder.addCase(logoutUser.rejected, (state) => {
       return { ...state, logoutErrorMessage: "ログアウト中にエラーが発生しました" };

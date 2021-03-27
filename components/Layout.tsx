@@ -13,7 +13,7 @@ type Props = {
 };
 
 const Layout = ({ children, title }: Props): JSX.Element => {
-  const { isLogin, currentUser } = useCurrentUser();
+  const { isLogin, isFetched, currentUser } = useCurrentUser();
   const dispatch = useDispatch();
 
   const onClickLogout = () => {
@@ -45,12 +45,12 @@ const Layout = ({ children, title }: Props): JSX.Element => {
             </div>
             <div />
             <div className="mr-4 flex items-center">
-              {!isLogin && (
+              {isFetched && !isLogin && (
                 <Link href="/login" passHref>
                   <PrimaryButtonRef className="my-2">ログイン</PrimaryButtonRef>
                 </Link>
               )}
-              {isLogin && currentUser.userName && (
+              {isFetched && isLogin && currentUser.userName && (
                 <Dropdown menuName={<i className="bi bi-person-circle text-5xl" />}>
                   <div className="py-1" role="none">
                     <div className="block px-4 pt-2 text-sm text-gray-500 select-none">ログイン中のユーザー</div>
