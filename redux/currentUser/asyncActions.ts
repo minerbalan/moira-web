@@ -8,7 +8,7 @@ export type CurrentUserResponse = {
 export const fetchCurrentUser = createAsyncThunk<CurrentUserResponse, void>(
   "currentUser/fetchCurrentUser",
   async (): Promise<CurrentUserResponse> => {
-    const responseData = await fetchApi("/current/user", "GET");
+    const responseData = await fetchApi<CurrentUserResponse>("/current/user", "GET");
     return { username: responseData.data.username };
   }
 );
