@@ -20,7 +20,6 @@ const IndexPage = (): JSX.Element => {
 
   useEffect(() => {
     if (isLogin && data) {
-      console.log(data);
       setArticle(
         <div className="mt-4 mx-4">
           <ArticleList articleList={data} />
@@ -35,11 +34,13 @@ const IndexPage = (): JSX.Element => {
     <>
       <Layout>
         {article}
-        <div className="flex justify-center mt-4">
-          <Link href="/articles" passHref>
-            <PrimaryButtonRef className="my-2 w-96">もっと見る...</PrimaryButtonRef>
-          </Link>
-        </div>
+        {isLogin && (
+          <div className="flex justify-center mt-4">
+            <Link href="/articles" passHref>
+              <PrimaryButtonRef className="my-2 w-96">もっと見る...</PrimaryButtonRef>
+            </Link>
+          </div>
+        )}
       </Layout>
     </>
   );
