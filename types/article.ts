@@ -4,4 +4,5 @@ export type Article = {
   thumbnail: string;
   description: string;
   publishedAt: Date;
+  subscriptionName: string;
 };
